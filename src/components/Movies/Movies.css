@@ -1,0 +1,25 @@
+.movies {
+  background-color: #202020;
+}
+
+.movies__container {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  padding: 0 50px;
+  max-width: 1140px;
+}
+
+@media (max-width: 769px) {
+  .movies__container {
+    padding: 0 30px;
+    max-width: 708px;
+  }
+}
+
+@media (max-width: 321px) {
+  .movies__container {
+    padding: 0 10px;
+    max-width: 300px;
+  }
+}

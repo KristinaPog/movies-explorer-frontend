@@ -1,0 +1,29 @@
+.menu{
+  background-color: #272727;
+}
+
+.menu__list{
+  height: 66px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  list-style: none;
+  font-size: 13px;
+  line-height: 1.23;
+  text-decoration: underline;
+}
+
+.menu__item{
+  color: #fff;
+}
+
+@media (max-width: 321px) {
+  .menu__list{
+    gap: 24px;
+    font-size: 11px;
+  }
+}
+

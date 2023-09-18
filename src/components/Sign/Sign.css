@@ -1,0 +1,11 @@
+.form__button_sign {
+  margin-top: 179px;
+  height: 45px;
+  border-radius: 3px;
+  border: none;
+  background-color: #4285f4;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.21;
+  color: #fff;
+}
