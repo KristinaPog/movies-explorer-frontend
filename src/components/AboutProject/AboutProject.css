@@ -1,0 +1,170 @@
+.about {
+  background-color: #202020;
+}
+
+.about__container {
+  display: flex;
+  flex-direction: column;
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.about__list {
+  margin: 70px 0 0 0;
+  padding: 0;
+  display: flex;
+  gap: 40px;
+}
+
+.about__item {
+  display: flex;
+  flex-direction: column;
+  max-width: 550px;
+  gap: 26px;
+}
+
+.about__item-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+}
+
+.about__item-subtitle {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.tracker {
+  margin-top: 110px;
+  display: flex;
+  font-size: 14px;
+  line-height: 1.21;
+}
+
+.tracker__block {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 14px;
+}
+
+.tracker__block_green {
+  width: 20%;
+}
+
+.tracker__block_gray {
+  width: 80%;
+}
+
+.tracker__line {
+  display: flex;
+  margin: 0;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tracker__line_green {
+  background-color: #3ddc84;
+  color: #000000;
+}
+
+.tracker__line_gray {
+  background-color: #303030;
+}
+
+.tracker__text {
+  color: #8b8b8b;
+  font-size: 14px;
+  line-height: 1.21;
+  margin: 0;
+}
+
+@media (max-width: 769px) {
+  .about__container {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  .about__item {
+    max-width: 319px;
+    gap: 22px;
+  }
+
+  .about__item-title {
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  .about__item-subtitle {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .tracker__block_green {
+    width: 21%;
+  }
+
+  .tracker__block_gray {
+    width: 79%;
+  }
+
+  .tracker {
+    margin-top: 93px;
+  }
+}
+
+@media (max-width: 321px) {
+  .about__container {
+    padding: 70px 18px 69px;
+  }
+
+  .about__list {
+    margin-top: 60px;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .about__item {
+    gap: 16px;
+  }
+
+  .about__item-title {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .about__item-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+
+  .tracker__block{
+    gap: 10px;
+  }
+
+  .tracker__block_green {
+    width: 35.2%;
+  }
+
+  .tracker__block_gray {
+    width: 64.8%;
+  }
+
+  .tracker {
+    margin-top: 60px;
+  }
+
+  .tracker__line{
+    font-size: 11px;
+  }
+
+  .tracker__text{
+    font-size: 11px;
+  }
+}

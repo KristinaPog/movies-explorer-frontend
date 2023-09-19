@@ -1,0 +1,41 @@
+.page {
+  font-family: "Inter", "Arial", "Helvetica", sans-serif;
+  min-width: 284px;
+  color: #fff;
+  font-weight: 400;  
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page__container {
+  margin: 0 auto;
+  padding: 0 50px;
+  max-width: 1140px;
+}
+
+.form {
+  display: flex; 
+  flex-direction: column;
+}
+
+.form__label {
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.form__input {
+  margin: 0;
+  padding: 0;
+}
+
+.form__button{
+  cursor: pointer;
+}
+
+@media (max-width: 580px) {
+  .page__container {
+    padding: 0 14px;
+  }
+}
