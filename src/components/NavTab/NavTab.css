@@ -18,6 +18,11 @@
 
 .menu__item{
   color: #fff;
+  cursor: pointer;
+}
+
+.menu__item:hover{
+  opacity: 0.8;
 }
 
 @media (max-width: 321px) {

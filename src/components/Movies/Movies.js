@@ -12,6 +12,7 @@ function Movies({ loggedIn }) {
         <div className="movies__container">
           <SearchForm />
           <MoviesCardList />
+          <button type="button" className="movies__button">Ещё</button>
         </div>
       </main>
       <Footer />

@@ -60,6 +60,7 @@
 
 .tracker__line {
   display: flex;
+  margin: 0;
   height: 36px;
   align-items: center;
   justify-content: center;

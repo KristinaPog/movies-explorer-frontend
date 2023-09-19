@@ -48,6 +48,11 @@
   width: 14px;
   height: 12px;
   margin: 19px 24px;
+  cursor: pointer;
+}
+
+.like:hover{
+  opacity: 0.8;
 }
 
 .delete{
@@ -58,6 +63,11 @@
   width: 14px;
   height: 12px;
   margin: 19px 24px;
+  cursor: pointer;
+}
+
+.delete:hover{
+  opacity: 0.8;
 }
 
 @media (max-width: 769px) {

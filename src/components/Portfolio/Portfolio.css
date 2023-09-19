@@ -30,6 +30,11 @@
 .portfolio__item {
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+}
+
+.portfolio__item:hover{
+  opacity: 0.8;
 }
 
 .portfolio__item:not(:last-child) {
@@ -40,6 +45,10 @@
 .portfolio__link {
   color: inherit;
   text-decoration: none;
+}
+
+.portfolio__image{
+  padding: 0 6px;
 }
 
 @media (max-width: 769px) {

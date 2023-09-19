@@ -1,4 +1,4 @@
-.form__button_sign {
+.form-sign__button {
   margin-top: 179px;
   height: 45px;
   border-radius: 3px;
@@ -8,4 +8,10 @@
   font-weight: 500;
   line-height: 1.21;
   color: #fff;
+}
+
+@media(max-width: 321px){
+  .form-sign__button {
+    margin-top: 267px;
+    font-size: 12px;}
 }

@@ -25,6 +25,11 @@
   font-size: 14px;
   line-height: 1.21;
   color: #4285f4;
+  cursor: pointer;
+}
+
+.back:hover{
+  opacity: 0.8;
 }
 
 @media (max-width: 769px) {
@@ -54,7 +59,7 @@
   .back {
     margin: 284px 0 0 0;
     padding-bottom: 30px;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.21;
   }
 }

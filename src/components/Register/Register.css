@@ -46,7 +46,6 @@
 }
 
 
-
 .error__text {
   margin: 10px 0 0 0;
   font-size: 10px;
@@ -84,6 +83,11 @@
 .register__link {
   color: #4285f4;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.register__link:hover {
+  color: #1167f2;
 }
 
 @media (max-width: 769px) {

@@ -4,6 +4,8 @@
   color: #fff;
   font-weight: 400;  
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .page__container {
@@ -26,6 +28,10 @@
 .form__input {
   margin: 0;
   padding: 0;
+}
+
+.form__button{
+  cursor: pointer;
 }
 
 @media (max-width: 580px) {

@@ -32,6 +32,12 @@
   border: none;
   margin-left: auto;
   background-color: inherit;
+  outline: none;
+  color: #fff;
+}
+
+.form__input_profile:focus{
+  background-color: #282828;
 }
 
 .form__label_profile {
@@ -56,6 +62,10 @@
   line-height: 1.23;
 }
 
+.form__button_profile:hover{
+  opacity: 0.8;
+}
+
 .exit {
   margin-top: 16px;
   color: #ee3465;
@@ -63,6 +73,11 @@
   font-weight: 500;
   line-height: 1.23;
   text-align: center;
+  cursor: pointer;
+}
+
+.exit:hover{
+  opacity: 0.8;
 }
 
 @media (max-width: 769px){

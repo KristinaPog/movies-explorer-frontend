@@ -46,6 +46,11 @@
 .footer__link {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
+}
+
+.footer__link:hover{
+  opacity: 0.8;
 }
 
 @media (max-width:321px){

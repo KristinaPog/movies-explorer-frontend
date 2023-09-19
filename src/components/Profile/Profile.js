@@ -6,15 +6,15 @@ function Profile({ loggedIn }) {
 
   function signOut() {
     localStorage.removeItem("jwt");
-    navigate("/signin");
+    navigate("/");
   }
 
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <section className="profile">
+      <main className="profile">
         <div className="profile__container">
-          <h2 className="profile__title">Привет, Кристина!</h2>
+          <h1 className="profile__title">Привет, Кристина!</h1>
           <form className="form form__profile">
             <label className="form__label form__label_profile" for="username">
               Имя
@@ -38,11 +38,11 @@ function Profile({ loggedIn }) {
                 required />
               <span className="form__input-error name-status-error"></span>
             </label>
-            <button className="form__button form__button_profile">Редактировать</button>
+            <button className="form__button form__button_profile" type="submit">Редактировать</button>
           </form>
           <p className="exit" onClick={signOut}>Выйти из аккаунта</p>
         </div>
-      </section>
+      </main>
     </>
   )
 }

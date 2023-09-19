@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function Signin() {
   return (
-    <section className="register">
+    <main className="register">
       <div className="register__container">
         <Link to="/">
           <img src={logo} alt="Логотип" className="logo logo__register" />
@@ -12,6 +12,9 @@ function Signin() {
         <form className="form">
           <label className="form__label form-register__label" for="email">E-mail</label>
           <input
+            required
+            minlength="2"
+            maxlength="50"
             id="email"
             name="email"
             type="email"
@@ -25,10 +28,12 @@ function Signin() {
             name="password"
             type="password"
             className="form__input form-register__input"
-            placeholder="Пароль" />
+            placeholder="Пароль"
+            minlength="2"
+            maxlength="50" />
           <span className="form__input-error name-input-error"></span>
 
-          <button className="form__button form-register__button form-signin__button">Войти</button>
+          <button className="form__button form-register__button form-sign__button" type="submit">Войти</button>
         </form>
 
         <div className="register__text">
@@ -37,7 +42,7 @@ function Signin() {
         </div>
       </div>
 
-    </section>
+    </main>
   )
 }
 

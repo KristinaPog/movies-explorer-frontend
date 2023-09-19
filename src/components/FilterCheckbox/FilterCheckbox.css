@@ -3,6 +3,7 @@
   justify-content: center;
   padding: 42px 0 69px 0;
   border-bottom: #424242 1px solid;
+  cursor: pointer;
 }
 
 .checkbox__input {
