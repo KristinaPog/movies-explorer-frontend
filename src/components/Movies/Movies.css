@@ -1,5 +1,8 @@
 .movies {
   background-color: #202020;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .movies__error{

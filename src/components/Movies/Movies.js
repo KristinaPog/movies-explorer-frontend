@@ -10,16 +10,16 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   const [moviesCount, setMoviesCount] = React.useState(0);
   const [filteredMovies, setFilteredMovies] = React.useState([]); //фильмы отфильтрованные по названию
   const [filteredMoviesToNameAndCheckBox, setFilteredMoviesToNameAndCheckBox] = React.useState([]); //фильмы отфильтрованные по чекбоксу и названию
-  const [shortMovies, setShortMovies] = React.useState(false); //checkbox
+  const [checkboxStatus, setCheckboxStatus] = React.useState(false); //checkbox
   const [loading, setLoading] = React.useState(false);
   const [isSuccessfulRequest, setIsSuccessfulRequest]=React.useState(true);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
     if (localStorage.getItem('checkbox-status') === 'true') {
-      setShortMovies(true);
+      setCheckboxStatus(true);
     } else {
-      setShortMovies(false);
+      setCheckboxStatus(false);
     }
   }, []);
 
@@ -27,17 +27,17 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   //-------------------------------------------------//
   function searchMovies(searchTerm) {
     localStorage.setItem('search-term', searchTerm);
-    localStorage.setItem('checkbox-status', shortMovies);
+    localStorage.setItem('checkbox-status', checkboxStatus);
     if (localStorage.getItem('all-movies')) {
       const movies = JSON.parse(localStorage.getItem('all-movies'));
-      handleFilterMovies(movies, searchTerm, shortMovies);
+      handleFilterMovies(movies, searchTerm, checkboxStatus);
       
     } else {
       setLoading(true);
       moviesApi.getInitialMovies()
         .then((cardsData) => {
           localStorage.setItem('all-movies', JSON.stringify(cardsData));
-          handleFilterMovies(cardsData, searchTerm, shortMovies);
+          handleFilterMovies(cardsData, searchTerm, checkboxStatus);
         })
         .catch((err) => {
           console.log(err);
@@ -60,8 +60,8 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   }
 
   function handleShortMovies() {
-    setShortMovies(!shortMovies);
-    if (!shortMovies) {
+    setCheckboxStatus(!checkboxStatus);
+    if (!checkboxStatus) {
       if (filterMoviesByDuration(filteredMovies).length === 0) {
         setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
       } else {
@@ -70,7 +70,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
     } else {
       setFilteredMoviesToNameAndCheckBox(filteredMovies);
     }
-    localStorage.setItem('checkbox-status', !shortMovies);
+    localStorage.setItem('checkbox-status', !checkboxStatus);
   }
 
   function calculateMoviesCount() {
@@ -114,23 +114,24 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
       );
       setFilteredMovies(movies);
       if (localStorage.getItem('checkbox-status') === 'true') {
-        setShortMovies(true);
+        setCheckboxStatus(true);
+        setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(movies));
       } else {
-        setShortMovies(false);
+        setCheckboxStatus(false);
+        setFilteredMoviesToNameAndCheckBox(movies);
       }
-      setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(movies));
     }
   }, []);
 
   return (
-    <>
+    <div className="movies">
       <Header loggedIn={loggedIn} />
-      <main className="movies">
+      <main>
         <div className="movies__container">
           <SearchForm
             searchMovies={searchMovies} //функция поиска фильмов
             onFilter={handleShortMovies} //обработчик включеного чекбокса
-            shortMovies={shortMovies}
+            checkboxStatus={checkboxStatus}
           />
           {isSuccessfulRequest ? <MoviesCardList
             loading = {loading}
@@ -145,7 +146,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         </div>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

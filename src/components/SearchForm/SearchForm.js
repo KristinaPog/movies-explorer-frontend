@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from 'react-hook-form';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ searchMovies, onFilter, shortMovies }) {
+function SearchForm({ searchMovies, onFilter, checkboxStatus }) {
   const { register, handleSubmit, formState: { errors } } = useForm({
     mode: "all",
   });
@@ -33,7 +33,7 @@ function SearchForm({ searchMovies, onFilter, shortMovies }) {
         {errors?.search && <span className="form__input-error name-input-error">{errors?.search.message}</span>}
         <FilterCheckbox
           onFilter={onFilter}
-          shortMovies={shortMovies} />
+          checkboxStatus={checkboxStatus} />
       </form>
 
     </section>

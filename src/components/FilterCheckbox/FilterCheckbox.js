@@ -1,6 +1,6 @@
 import React from "react";
 
-function FilterCheckbox({ onFilter, shortMovies }) {
+function FilterCheckbox({ onFilter, checkboxStatus }) {
   return (
     <label className="checkbox" htmlFor="checkbox">
       <input
@@ -8,7 +8,7 @@ function FilterCheckbox({ onFilter, shortMovies }) {
         className="checkbox__input"
         id="checkbox"
         onChange={onFilter}
-        checked={shortMovies} />
+        checked={checkboxStatus} />
       <span className="checkbox__label">Короткометражки</span>
     </label>
   )

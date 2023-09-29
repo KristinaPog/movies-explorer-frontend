@@ -39,9 +39,9 @@ function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
   }
 
 
-  return (<>
+  return (<div className="movies">
     <Header loggedIn={loggedIn} />
-    <main className="movies">
+    <main >
       <div className="movies__container">
         <SearchForm
           searchMovies={searchMovies}
@@ -54,7 +54,7 @@ function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
       </div>
     </main>
     <Footer />
-  </>
+  </div>
   );
 }
 
