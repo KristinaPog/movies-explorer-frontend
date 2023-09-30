@@ -11,7 +11,6 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   const [filteredMovies, setFilteredMovies] = React.useState([]); //фильмы отфильтрованные по названию
   const [filteredMoviesToNameAndCheckBox, setFilteredMoviesToNameAndCheckBox] = React.useState([]); //фильмы отфильтрованные по чекбоксу и названию
   const [checkboxStatus, setCheckboxStatus] = React.useState(false); //checkbox
-  const [searchQuery, setSearchQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [isSuccessfulRequest, setIsSuccessfulRequest] = React.useState(true);
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -56,6 +55,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
     setFilteredMovies(movies); //меняем стейт
     setFilteredMoviesToNameAndCheckBox(short ? filterMoviesByDuration(movies) : movies);
     localStorage.setItem('filtered-movies', JSON.stringify(movies));
+    localStorage.setItem('search-term', searchTerm);
   }
 
   function handleShortMovies() {
@@ -111,8 +111,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
       const movies = JSON.parse(
         localStorage.getItem('filtered-movies')
       );
-      const query = localStorage.getItem('search-term');
-      handleFilterMovies(movies, query, checkboxStatus);
+      setFilteredMovies(movies);
       if (localStorage.getItem('checkbox-status') === 'true') {
         setCheckboxStatus(true);
         setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(movies));
@@ -120,9 +119,8 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         setCheckboxStatus(false);
         setFilteredMoviesToNameAndCheckBox(movies);
       }
-      setFilteredMovies(movies);
-      setSearchQuery(query);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -135,7 +133,6 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
             searchMovies={searchMovies} //функция поиска фильмов
             onFilter={handleShortMovies} //обработчик включеного чекбокса
             checkboxStatus={checkboxStatus}
-            searchQuery={searchQuery}
           />
           {isSuccessfulRequest ? <MoviesCardList
             loading = {loading}

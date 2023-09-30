@@ -57,9 +57,10 @@ function App() {
   function signOut() {
     localStorage.removeItem("jwt");
     localStorage.removeItem("all-movies");
+    localStorage.removeItem("filtered-movies");
     localStorage.removeItem("saved-movies");
     localStorage.removeItem("search-term");
-    localStorage.removeItem("checkbox");
+    localStorage.removeItem("checkbox-status");
     navigate("/");
     setLoggedIn(false);
   }
