@@ -112,6 +112,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         localStorage.getItem('filtered-movies')
       );
       setFilteredMovies(movies);
+      (movies.length === 0) ? (setIsSuccessfulRequest(false)) : (setIsSuccessfulRequest(true));
       if (localStorage.getItem('checkbox-status') === 'true') {
         setCheckboxStatus(true);
         setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(movies));
