@@ -10,9 +10,11 @@ function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
   const [filteredMovies, setFilteredMovies] = React.useState([]); //фильмы отфильтрованные по названию
   const [filteredMoviesToNameAndCheckBox, setFilteredMoviesToNameAndCheckBox] = React.useState(savedMovies); //фильмы отфильтрованные по чекбоксу и названию
   const [shortMovies, setShortMovies] = React.useState(false); //checkbox
+  const [isSuccessfulRequest, setIsSuccessfulRequest] = React.useState(true);
 
   function searchMovies(searchTerm, short) {
     const movies = filterMovies(savedMovies, searchTerm); //фильтруем
+    (movies.length === 0) ? (setIsSuccessfulRequest(false)) : (setIsSuccessfulRequest(true));
     setFilteredMovies(movies); //меняем стейт
     setFilteredMoviesToNameAndCheckBox(short ? filterMoviesByDuration(movies) : movies);
   }
@@ -47,10 +49,10 @@ function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
           searchMovies={searchMovies}
           onFilter={handleShortMovies} //обработчик включеного чекбокса
           shortMovies={shortMovies} />
-        <MoviesCardList
+        {isSuccessfulRequest ? <MoviesCardList
           movies={filteredMoviesToNameAndCheckBox}
           savedMovies={savedMovies}
-          onDeleteClick={handleDeleteClick} />
+          onDeleteClick={handleDeleteClick} /> : <span className="movies__error">Ничего не найдено!</span>}
       </div>
     </main>
     <Footer />

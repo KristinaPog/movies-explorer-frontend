@@ -11,8 +11,9 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   const [filteredMovies, setFilteredMovies] = React.useState([]); //фильмы отфильтрованные по названию
   const [filteredMoviesToNameAndCheckBox, setFilteredMoviesToNameAndCheckBox] = React.useState([]); //фильмы отфильтрованные по чекбоксу и названию
   const [checkboxStatus, setCheckboxStatus] = React.useState(false); //checkbox
+  const [searchQuery, setSearchQuery] = React.useState('');
   const [loading, setLoading] = React.useState(false);
-  const [isSuccessfulRequest, setIsSuccessfulRequest]=React.useState(true);
+  const [isSuccessfulRequest, setIsSuccessfulRequest] = React.useState(true);
   const [errorMessage, setErrorMessage] = React.useState('');
 
   React.useEffect(() => {
@@ -47,13 +48,11 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
           setLoading(false);
         })
     }
-
   }
 
   function handleFilterMovies(moviesList, searchTerm, short) {
     const movies = filterMovies(moviesList, searchTerm); //фильтруем
     (movies.length === 0) ? (setIsSuccessfulRequest(false)) : (setIsSuccessfulRequest(true));
-    console.log(isSuccessfulRequest)
     setFilteredMovies(movies); //меняем стейт
     setFilteredMoviesToNameAndCheckBox(short ? filterMoviesByDuration(movies) : movies);
     localStorage.setItem('filtered-movies', JSON.stringify(movies));
@@ -112,7 +111,8 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
       const movies = JSON.parse(
         localStorage.getItem('filtered-movies')
       );
-      setFilteredMovies(movies);
+      const query = localStorage.getItem('search-term');
+      handleFilterMovies(movies, query, checkboxStatus);
       if (localStorage.getItem('checkbox-status') === 'true') {
         setCheckboxStatus(true);
         setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(movies));
@@ -120,7 +120,10 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         setCheckboxStatus(false);
         setFilteredMoviesToNameAndCheckBox(movies);
       }
+      setFilteredMovies(movies);
+      setSearchQuery(query);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -132,6 +135,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
             searchMovies={searchMovies} //функция поиска фильмов
             onFilter={handleShortMovies} //обработчик включеного чекбокса
             checkboxStatus={checkboxStatus}
+            searchQuery={searchQuery}
           />
           {isSuccessfulRequest ? <MoviesCardList
             loading = {loading}

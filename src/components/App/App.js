@@ -17,7 +17,7 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
   const [isSuccess, setIsSucces] = React.useState(false);
-
+  
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
@@ -66,7 +66,9 @@ function App() {
 
   function handleLikeClick(movie) {
     mainApi.saveMovie(movie)
-      .then((movie) => { setSavedMoviesList([movie, ...savedMoviesList]) })
+      .then((movie) => { 
+        setSavedMoviesList([movie, ...savedMoviesList]);
+      })
       .catch((err) => (console.log(err)));
   }
 
@@ -103,7 +105,8 @@ function App() {
               loggedIn={loggedIn}
               savedMovies={savedMoviesList}
               handleLikeClick={handleLikeClick}
-              handleDeleteClick={handleDeleteClick} />}
+              handleDeleteClick={handleDeleteClick}
+              />}
           />
           <Route path="/saved-movies" element=
             {<ProtectedRouteElement element={SavedMovies}

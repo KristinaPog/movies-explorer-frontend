@@ -28,10 +28,12 @@ function Profile({ loggedIn, signOut, onUpdateUser, isSuccess }) {
   }, [currentUser.name, currentUser.email, isName, isEmail]);
 
   const onSubmit = (data) => {
+    setDisabled(true);
     onUpdateUser({
       name: data.name,
       email: data.email,
     });
+    setDisabled(false);
   }
 
   return (

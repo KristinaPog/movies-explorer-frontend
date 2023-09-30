@@ -12,14 +12,16 @@ function Signin({ handleLogin }) {
   });
 
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const onSubmit = (data) => {
+    setIsLoading(true);
     mainApi.authorize(data.email, data.password)
       .then((data) => {
         handleLogin();
         navigate('/movies', { replace: true });
         localStorage.setItem('jwt', data.token);
+        setIsLoading(false);
       })
       .catch(err => {
         if (err === 'Ошибка: 401') {
@@ -28,6 +30,7 @@ function Signin({ handleLogin }) {
           setErrorMessage('Что-то пошло не так, попробуйте снова!')
         }
         console.log(err);
+        setIsLoading(false);
       });
   }
 
@@ -51,6 +54,7 @@ function Signin({ handleLogin }) {
             placeholder="E-mail"
             className="form__input form-register__input"
             id="email"
+            disabled = {isLoading}
           />
           {errors?.email && <span className="form__input-error name-input-error">{errors?.email.message}</span>}
 
@@ -72,11 +76,12 @@ function Signin({ handleLogin }) {
             type="password"
             className="form__input form-register__input"
             placeholder="Пароль"
+            disabled = {isLoading}
             />
           {errors?.password && <span className="form__input-error name-input-error">{errors?.password.message}</span>}
           
           <span className="sign__error">{errorMessage}</span>
-          <button className="form__button form-register__button form-sign__button" type="submit" disabled={!isValid}>Войти</button>
+          <button className="form__button form-register__button form-sign__button" type="submit" disabled={!isValid || isLoading}>Войти</button>
         </form>
 
         <div className="register__text">

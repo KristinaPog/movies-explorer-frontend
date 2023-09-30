@@ -9,20 +9,19 @@ function MoviesCard({ movie, savedMovie, savedMovies, onLikeClick, onDeleteClick
 
   const [isSavedMovie, setIsSavedMovie] = React.useState(savedMovie ? true : false);
 
+  React.useEffect(()=>{setIsSavedMovie(savedMovie)}, [savedMovie])
+
   const handleLikeClick = () => {
     if (isSavedMovie) {
       onDeleteClick(savedMovies.filter((m) => m.movieId === movie.id)[0]);
-      setIsSavedMovie(false);
     }
     else {
       onLikeClick(movie);
-      setIsSavedMovie(true);
     }
   }
 
   const handleDeleteClick = () => {
     onDeleteClick(movie);
-    setIsSavedMovie(false);
   }
 
   return (

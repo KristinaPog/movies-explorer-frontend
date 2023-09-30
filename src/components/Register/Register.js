@@ -7,12 +7,14 @@ import React from "react";
 function Register({ handleLogin }) {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({
     mode: "all",
   });
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     mainApi.register(data.email, data.password, data.name)
       .then(() => {
         mainApi.authorize(data.email, data.password)
@@ -20,6 +22,7 @@ function Register({ handleLogin }) {
           handleLogin();
           navigate('/movies', { replace: true });
           localStorage.setItem('jwt', data.token);
+          setIsLoading(false);
         })
       })
       .catch(err => {
@@ -29,6 +32,7 @@ function Register({ handleLogin }) {
           setErrorMessage('Что-то пошло не так, попробуйте снова!')
         }
         console.log(err);
+        setIsLoading(false);
       })
   }
 
@@ -61,6 +65,7 @@ function Register({ handleLogin }) {
             id="name"
             className={`form__input form-register__input ${errors?.name && 'form-register__input_error'}`}
             placeholder="Имя"
+            disabled = {isLoading}
           />
           {errors?.name && <span className="form__input-error name-input-error">{errors?.name.message}</span>}
 
@@ -76,6 +81,7 @@ function Register({ handleLogin }) {
             placeholder="E-mail"
             className={`form__input form-register__input ${errors?.email && 'form-register__input_error'}`}
             id="email"
+            disabled = {isLoading}
           />
           {errors?.email && <span className="form__input-error name-input-error">{errors?.email.message}</span>}
 
@@ -96,11 +102,12 @@ function Register({ handleLogin }) {
             type="password"
             className={`form__input form-register__input ${errors?.password && 'form-register__input_error'}`}
             placeholder="Пароль"
+            disabled = {isLoading}
           />
           {errors?.password && <span className="form__input-error name-input-error">{errors?.password.message}</span>}
           
           <span className="register__error">{errorMessage}</span>
-          <button className="form__button form-register__button" type="submit" disabled={!isValid}>Зарегистироваться</button>
+          <button className="form__button form-register__button" type="submit" disabled={!isValid || isLoading}>Зарегистироваться</button>
           
         </form>
 
