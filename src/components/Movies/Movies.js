@@ -121,7 +121,6 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         setFilteredMoviesToNameAndCheckBox(movies);
       }
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

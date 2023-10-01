@@ -7,25 +7,27 @@ import Footer from "../Footer/Footer";
 import { filterMovies, filterMoviesByDuration } from "../../utils/utils"
 
 function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
-  const [filteredMovies, setFilteredMovies] = React.useState([]); //фильмы отфильтрованные по названию
+  const [filteredMovies, setFilteredMovies] = React.useState(savedMovies); //фильмы отфильтрованные по названию
   const [filteredMoviesToNameAndCheckBox, setFilteredMoviesToNameAndCheckBox] = React.useState(savedMovies); //фильмы отфильтрованные по чекбоксу и названию
   const [shortMovies, setShortMovies] = React.useState(false); //checkbox
   const [isSuccessfulRequest, setIsSuccessfulRequest] = React.useState(true);
+  const [searchQuery, setSearchQuery] = React.useState('');
 
   function searchMovies(searchTerm, short) {
     const movies = filterMovies(savedMovies, searchTerm); //фильтруем
     (movies.length === 0) ? (setIsSuccessfulRequest(false)) : (setIsSuccessfulRequest(true));
     setFilteredMovies(movies); //меняем стейт
+    setSearchQuery(searchTerm);
     setFilteredMoviesToNameAndCheckBox(short ? filterMoviesByDuration(movies) : movies);
   }
 
-  React.useEffect(() => {
+  React.useEffect(() => {    
     if (shortMovies) {
-      setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(savedMovies));
+      setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filterMovies(savedMovies, searchQuery)));
     }
-    else setFilteredMoviesToNameAndCheckBox(savedMovies);
-  }, [shortMovies, savedMovies]);
-
+    else {
+      setFilteredMoviesToNameAndCheckBox(filterMovies(savedMovies, searchQuery));}
+  }, [shortMovies, savedMovies, searchQuery]);
 
   function handleShortMovies() {
     setShortMovies(!shortMovies);
