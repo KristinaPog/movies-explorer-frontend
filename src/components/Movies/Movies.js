@@ -31,7 +31,6 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
     if (localStorage.getItem('all-movies')) {
       const movies = JSON.parse(localStorage.getItem('all-movies'));
       handleFilterMovies(movies, searchTerm, checkboxStatus);
-      
     } else {
       setLoading(true);
       moviesApi.getInitialMovies()
@@ -43,7 +42,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
           console.log(err);
           setErrorMessage('Во время запроса произошла ошибка.Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
         })
-        .finally(()=>{
+        .finally(() => {
           setLoading(false);
         })
     }
@@ -61,11 +60,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   function handleShortMovies() {
     setCheckboxStatus(!checkboxStatus);
     if (!checkboxStatus) {
-      if (filterMoviesByDuration(filteredMovies).length === 0) {
-        setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
-      } else {
-        setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
-      }
+      setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
     } else {
       setFilteredMoviesToNameAndCheckBox(filteredMovies);
     }
@@ -121,8 +116,20 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
         setFilteredMoviesToNameAndCheckBox(movies);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  React.useEffect(() => {
+    if (localStorage.getItem('search-term')) {
+      if (filteredMoviesToNameAndCheckBox.length === 0) {
+        setIsSuccessfulRequest(false);
+      } else {
+        setIsSuccessfulRequest(true);
+      }
+    } 
+    else {
+      setIsSuccessfulRequest(false);
+    }
+  }, [filteredMoviesToNameAndCheckBox]);
 
   return (
     <div className="movies">
@@ -135,7 +142,7 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
             checkboxStatus={checkboxStatus}
           />
           {isSuccessfulRequest ? <MoviesCardList
-            loading = {loading}
+            loading={loading}
             movies={filteredMoviesToNameAndCheckBox}
             savedMovies={savedMovies}
             onLikeClick={handleLikeClick}
@@ -143,7 +150,6 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
             moviesCount={moviesCount} /> : <span className="movies__error">Ничего не найдено!</span>}
           <span className="movies__error">{errorMessage}</span>
           {filteredMoviesToNameAndCheckBox.length > moviesCount ? <button type="button" onClick={showMore} className="movies__button">Ещё</button> : ''}
-          
         </div>
       </main>
       <Footer />

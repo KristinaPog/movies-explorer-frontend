@@ -15,33 +15,36 @@ function SavedMovies({ loggedIn, savedMovies, handleDeleteClick }) {
 
   function searchMovies(searchTerm, short) {
     const movies = filterMovies(savedMovies, searchTerm); //фильтруем
-    (movies.length === 0) ? (setIsSuccessfulRequest(false)) : (setIsSuccessfulRequest(true));
     setFilteredMovies(movies); //меняем стейт
     setSearchQuery(searchTerm);
     setFilteredMoviesToNameAndCheckBox(short ? filterMoviesByDuration(movies) : movies);
   }
 
-  React.useEffect(() => {    
+  React.useEffect(() => {
     if (shortMovies) {
       setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filterMovies(savedMovies, searchQuery)));
     }
     else {
-      setFilteredMoviesToNameAndCheckBox(filterMovies(savedMovies, searchQuery));}
+      setFilteredMoviesToNameAndCheckBox(filterMovies(savedMovies, searchQuery));
+    }
   }, [shortMovies, savedMovies, searchQuery]);
+
+  React.useEffect(() => {
+    if (filteredMoviesToNameAndCheckBox.length === 0) {
+      setIsSuccessfulRequest(false);
+    } else {
+      setIsSuccessfulRequest(true);
+    }
+  }, [filteredMoviesToNameAndCheckBox]);
 
   function handleShortMovies() {
     setShortMovies(!shortMovies);
     if (!shortMovies) {
-      if (filterMoviesByDuration(filteredMovies).length === 0) {
-        setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
-      } else {
-        setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
-      }
+      setFilteredMoviesToNameAndCheckBox(filterMoviesByDuration(filteredMovies));
     } else {
       setFilteredMoviesToNameAndCheckBox(filteredMovies);
     }
   }
-
 
   return (<div className="movies">
     <Header loggedIn={loggedIn} />
