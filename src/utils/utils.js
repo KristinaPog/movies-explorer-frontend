@@ -1,10 +1,10 @@
+import { SHORT_FILM_LENGTH } from "./constants";
+
 export function computeDuration (duration) {
   const minutes = duration % 60;
   const hours = Math.trunc(duration / 60);
   return `${hours}ч ${minutes}м`;
 }
-
-
 
 export function filterMovies (moviesList ,searchTerm) {
   //фильтруем список фильмов, каждый фильм проверяем на соответствие запросу пользователя. Ищем в названиях на двух языкаx
@@ -20,6 +20,6 @@ export function filterMovies (moviesList ,searchTerm) {
 }
 
 export function filterMoviesByDuration (movies) {
-  return movies.filter(movie => movie.duration < 40);
+  return movies.filter(movie => movie.duration < SHORT_FILM_LENGTH);
 }
 

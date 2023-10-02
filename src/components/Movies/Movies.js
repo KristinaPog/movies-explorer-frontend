@@ -5,6 +5,13 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import moviesApi from "../../utils/MoviesApi";
 import { filterMovies, filterMoviesByDuration } from "../../utils/utils"
+import { COUNT_MOVIES_LAPTOP, 
+  COUNT_MOVIES_TABLET, 
+  COUNT_MOVIES_MOBILE,
+  COUNT_MOVIES_LAPTOP_MORE, 
+  COUNT_MOVIES_TABLET_MORE, 
+  COUNT_MOVIES_MOBILE_MORE,
+} from "../../utils/constants";
 
 function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   const [moviesCount, setMoviesCount] = React.useState(0);
@@ -70,11 +77,11 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   function calculateMoviesCount() {
     const display = window.innerWidth;
     if (display > 1047) {
-      setMoviesCount(12);
+      setMoviesCount(COUNT_MOVIES_LAPTOP);
     } else if (display > 617) {
-      setMoviesCount(8);
+      setMoviesCount(COUNT_MOVIES_TABLET);
     } else if (display <= 617) {
-      setMoviesCount(5);
+      setMoviesCount(COUNT_MOVIES_MOBILE);
     }
   }
 
@@ -91,12 +98,12 @@ function Movies({ loggedIn, savedMovies, handleLikeClick, handleDeleteClick }) {
   function showMore() {
     const display = window.innerWidth;
     if (display > 1047) {
-      setMoviesCount(moviesCount + 3);
+      setMoviesCount(moviesCount + COUNT_MOVIES_LAPTOP_MORE);
     } else if (display > 613) {
-      setMoviesCount(moviesCount + 2);
+      setMoviesCount(moviesCount + COUNT_MOVIES_TABLET_MORE);
     }
     else if (display < 613) {
-      setMoviesCount(moviesCount + 2);
+      setMoviesCount(moviesCount + COUNT_MOVIES_MOBILE_MORE);
     }
   }
 
