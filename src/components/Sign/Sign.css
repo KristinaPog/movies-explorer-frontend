@@ -1,5 +1,5 @@
 .form-sign__button {
-  margin-top: 179px;
+  
   height: 45px;
   border-radius: 3px;
   border: none;
@@ -10,8 +10,20 @@
   color: #fff;
 }
 
+.sign__error{
+  margin-top: 179px;
+  color: #ee3465;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+
 @media(max-width: 321px){
-  .form-sign__button {
+  .sign__error{
     margin-top: 267px;
+    font-size: 12px;
+  }
+
+  .form-sign__button {
     font-size: 12px;}
 }

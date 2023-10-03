@@ -36,6 +36,10 @@
   color: #fff;
 }
 
+.form__input_profile_error {
+  color: #ee3465;
+}
+
 .form__input_profile:focus{
   background-color: #282828;
 }
@@ -66,6 +70,11 @@
   opacity: 0.8;
 }
 
+.form__button_profile:disabled{
+  opacity: 0.8;
+  cursor: no-drop;
+}
+
 .exit {
   margin-top: 16px;
   color: #ee3465;
@@ -74,6 +83,12 @@
   line-height: 1.23;
   text-align: center;
   cursor: pointer;
+}
+
+.profile__notification{
+  margin-top: 5px;
+  font-size: 14px;
+  color: #2BE080;
 }
 
 .exit:hover{

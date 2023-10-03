@@ -7,7 +7,12 @@
   position: relative;
 }
 
+.movie__link{
+  display: block;
+}
+
 .movie__image{
+  width: 100%;
   object-fit: cover;
   height: 203px;
   box-sizing: border-box;
@@ -41,7 +46,7 @@
 }
 
 .like {
-  background-image: url(../../images/like.svg);
+  background-image: url(../../images/not-like.svg);
   background-repeat: no-repeat;
   background-color: inherit;
   border: none;
@@ -49,6 +54,10 @@
   height: 12px;
   margin: 19px 24px;
   cursor: pointer;
+}
+
+.like_active{
+  background-image: url(../../images/like.svg);
 }
 
 .like:hover{

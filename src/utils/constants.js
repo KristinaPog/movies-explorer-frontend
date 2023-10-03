@@ -1,0 +1,9 @@
+export const COUNT_MOVIES_LAPTOP = 12
+export const COUNT_MOVIES_TABLET = 8
+export const COUNT_MOVIES_MOBILE = 5
+
+export const COUNT_MOVIES_LAPTOP_MORE = 3
+export const COUNT_MOVIES_TABLET_MORE = 2
+export const COUNT_MOVIES_MOBILE_MORE = 2
+
+export const SHORT_FILM_LENGTH = 40

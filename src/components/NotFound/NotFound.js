@@ -7,7 +7,7 @@ function NotFound() {
     <main className="not-found">
       <h1 className="not-found__title">404</h1>
       <p className="not-found__subtitle">Страница не найдена</p>
-      <button onClick={()=> navigate(-1)} className="back">Назад</button>
+      <button onClick={()=> navigate(-2)} className="back">Назад</button>
     </main>
   )
 }

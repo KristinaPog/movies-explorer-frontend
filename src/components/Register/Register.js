@@ -1,7 +1,41 @@
 import logo from "../../images/logo.svg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import * as mainApi from "../../utils/MainApi";
+import { useForm } from 'react-hook-form';
+import React from "react";
 
-function Register() {
+function Register({ handleLogin }) {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm({
+    mode: "all",
+  });
+
+  const onSubmit = (data) => {
+    setIsLoading(true);
+    mainApi.register(data.email, data.password, data.name)
+      .then(() => {
+        mainApi.authorize(data.email, data.password)
+        .then((data) => {
+          handleLogin();
+          navigate('/movies', { replace: true });
+          localStorage.setItem('jwt', data.token);
+          setIsLoading(false);
+        })
+      })
+      .catch(err => {
+        if (err === 'Ошибка: 409') {
+          setErrorMessage('Пользователь с таким email уже зарегистрирован!')
+        } else {
+          setErrorMessage('Что-то пошло не так, попробуйте снова!')
+        }
+        console.log(err);
+        setIsLoading(false);
+      })
+  }
+
   return (
     <main className="register">
       <div className="register__container">
@@ -10,45 +44,71 @@ function Register() {
         </Link>
 
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form className="form">
-          <label className="form__label form-register__label" for="username">Имя</label>
+        <form onSubmit={handleSubmit(onSubmit)} className="form" noValidate>
+          <label className="form__label form-register__label" htmlFor="username">Имя</label>
           <input
-            required
-            id="username"
-            name="username"
-            type="text"
-            className="form__input form-register__input"
+            {...register('name', {
+              required: "Поле обязательно к заполнению!",
+              minLength: {
+                value: 2,
+                message: "Имя не может быть меньше 2 символов"
+              },
+              maxLength: {
+                value: 30,
+                message: "Имя не может быть больше 30 символов"
+              },
+              pattern: {
+                message: 'Используйте только латиницу, кириллицу, пробел или дефис',
+                value: /^[A-Za-zА-Яа-яЁё \\-]+$/
+              },
+            })}
+            id="name"
+            className={`form__input form-register__input ${errors?.name && 'form-register__input_error'}`}
             placeholder="Имя"
-            minlength="2"
-            maxlength="50" />
-          <span className="form__input-error name-input-error"></span>
-
-          <label className="form__label form-register__label" for="email">E-mail</label>
-          <input
-            required
-            id="email"
-            name="email"
-            type="email"
-            className="form__input form-register__input"
-            placeholder="E-mail"
-            minlength="2"
-            maxlength="50"
+            disabled = {isLoading}
           />
-          <span className="form__input-error name-input-error"></span>
+          {errors?.name && <span className="form__input-error name-input-error">{errors?.name.message}</span>}
 
-          <label className="form__label form-register__label" for="password">Пароль</label>
+          <label className="form__label form-register__label" htmlFor="email">E-mail</label>
           <input
-            required
+            {...register('email', {
+              required: "Поле обязательно к заполнению!",
+              pattern: {
+                message: 'Пожалуйста введите корректный email',
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i
+              },
+            })}
+            placeholder="E-mail"
+            className={`form__input form-register__input ${errors?.email && 'form-register__input_error'}`}
+            id="email"
+            disabled = {isLoading}
+          />
+          {errors?.email && <span className="form__input-error name-input-error">{errors?.email.message}</span>}
+
+          <label className="form__label form-register__label" htmlFor="password">Пароль</label>
+          <input
+            {...register('password', {
+              required: "Пожалуйста введите пароль, не менее 8 и не более 30 символов!",
+              minLength: {
+                value: 8,
+                message: "Пароль не может быть меньше 8 символов"
+              },
+              maxLength: {
+                value: 30,
+                message: "Пароль не может быть больше 30 символов"
+              }
+            })}
             id="password"
-            name="password"
             type="password"
-            className="form__input form-register__input"
+            className={`form__input form-register__input ${errors?.password && 'form-register__input_error'}`}
             placeholder="Пароль"
-            minlength="2"
-            maxlength="50" />
-          <span className="form__input-error name-input-error"></span>
-          <p className="error__text">Что-то пошло не так...</p>
-          <button className="form__button form-register__button" type="submit">Зарегистироваться</button>
+            disabled = {isLoading}
+          />
+          {errors?.password && <span className="form__input-error name-input-error">{errors?.password.message}</span>}
+          
+          <span className="register__error">{errorMessage}</span>
+          <button className="form__button form-register__button" type="submit" disabled={!isValid || isLoading}>Зарегистироваться</button>
+          
         </form>
 
         <div className="register__text">

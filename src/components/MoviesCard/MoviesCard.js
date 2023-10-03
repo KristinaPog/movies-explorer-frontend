@@ -1,20 +1,53 @@
-import movie1 from "../../images/movie-1.png"
 import { useLocation } from "react-router-dom";
+import React from "react";
 
-function MoviesCard() {
+import { computeDuration } from "../../utils/utils";
+
+function MoviesCard({ movie, savedMovie, savedMovies, onLikeClick, onDeleteClick }) {
+
   const location = useLocation();
+
+  const [isSavedMovie, setIsSavedMovie] = React.useState(savedMovie ? true : false);
+
+  React.useEffect(()=>{setIsSavedMovie(savedMovie)}, [savedMovie])
+
+  const handleLikeClick = () => {
+    if (isSavedMovie) {
+      onDeleteClick(savedMovies.filter((m) => m.movieId === movie.id)[0]);
+    }
+    else {
+      onLikeClick(movie);
+    }
+  }
+
+  const handleDeleteClick = () => {
+    onDeleteClick(movie);
+  }
 
   return (
     <li className="movie">
-      <img className="movie__image" alt={"33 слова о дизайне"} src={movie1} />
+      <a href={movie.trailerLink} className="movie__link" target="_blank" rel="noopener noreferrer" >
+        <img className="movie__image" alt={movie.nameRU} src={location.pathname === "/movies" ? `https://api.nomoreparties.co${movie.image.url}` : movie.image}
+        />
+      </a>
       <div className="movie__label">
         <div className="movie__info">
-          <h2 className="movie__text">33 слова о дизайне</h2>
-          <div className="movie__time">1ч 47м</div>
+          <h2 className="movie__text">{movie.nameRU}</h2>
+          <div className="movie__time">{computeDuration(movie.duration)}</div>
         </div>
-        <button type="button" className={`${location.pathname === "/movies" ? "like" : "delete"}`} aria-label="Поставить лайк" ></button>
+        {location.pathname === "/movies" ?
+          (<button
+            type="button"
+            className={`${isSavedMovie ? 'like like_active' : 'like'}`}
+            aria-label="Добавить в избранное"
+            onClick={handleLikeClick} />)
+          : (<button
+            type="button"
+            className="delete"
+            aria-label="Убрать из избранного"
+            onClick={handleDeleteClick} />)}
       </div>
-    </li>
+    </li >
   )
 }
 
